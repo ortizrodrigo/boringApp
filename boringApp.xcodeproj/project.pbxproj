@@ -14,6 +14,7 @@
 		561BFC2A2C98F34900E6B5E9 /* boringAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC292C98F34900E6B5E9 /* boringAppTests.swift */; };
 		561BFC342C98F34900E6B5E9 /* boringAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC332C98F34900E6B5E9 /* boringAppUITests.swift */; };
 		561BFC362C98F34900E6B5E9 /* boringAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC352C98F34900E6B5E9 /* boringAppUITestsLaunchTests.swift */; };
+		561BFC432CA14B1500E6B5E9 /* KeychainHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC422CA14B1500E6B5E9 /* KeychainHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		561BFC2F2C98F34900E6B5E9 /* boringAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = boringAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		561BFC332C98F34900E6B5E9 /* boringAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boringAppUITests.swift; sourceTree = "<group>"; };
 		561BFC352C98F34900E6B5E9 /* boringAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boringAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		561BFC422CA14B1500E6B5E9 /* KeychainHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				561BFC1B2C98F34800E6B5E9 /* Assets.xcassets */,
 				561BFC1D2C98F34800E6B5E9 /* boringApp.entitlements */,
 				561BFC1E2C98F34800E6B5E9 /* Preview Content */,
+				561BFC422CA14B1500E6B5E9 /* KeychainHandler.swift */,
 			);
 			path = boringApp;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			files = (
 				561BFC1A2C98F34800E6B5E9 /* ContentView.swift in Sources */,
 				561BFC182C98F34800E6B5E9 /* boringAppApp.swift in Sources */,
+				561BFC432CA14B1500E6B5E9 /* KeychainHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
