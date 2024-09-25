@@ -10,7 +10,15 @@ import Security
 
 struct KeychainHandler {
     
-    static func generateSalt() -> Data? {
+    enum SaltGenerationError: Error {
+        case saltGenerationFailed
+    }
+    
+    enum PasswordHashingError: Error {
+        case passwordHashingFailed
+    }
+    
+    static func genSalt() -> Data? {
         let bytes = 16 // Immutable
         var salt = Data(count: bytes) // Create Data object for salt
         
@@ -23,11 +31,25 @@ struct KeychainHandler {
         if genStatus == errSecSuccess {
             return salt
         } else {
-            print("There was a problem generating the salt")
+            print("Failed to generate salt")
             return nil
         }
         
         return salt
+    }
+    
+    static func hashPassword(password: String, withSalt salt: Data) -> Data? {
+        // Convert password: String to passwordData: Data
+        guard let passwordData = password.data(using: .utf8) else {
+            print("Failed to convert password to Data object")
+            return nil
+        }
+        
+        // Hash the password
+        var hash = [UInt8](repeating: 0, count: 32)
+        let hashLength = 32 // Change this based on your needs
+        
+        
     }
     
     static func storePassword(username: String, password: String) {

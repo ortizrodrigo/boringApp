@@ -15,6 +15,7 @@
 		561BFC342C98F34900E6B5E9 /* boringAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC332C98F34900E6B5E9 /* boringAppUITests.swift */; };
 		561BFC362C98F34900E6B5E9 /* boringAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC352C98F34900E6B5E9 /* boringAppUITestsLaunchTests.swift */; };
 		561BFC432CA14B1500E6B5E9 /* KeychainHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC422CA14B1500E6B5E9 /* KeychainHandler.swift */; };
+		56687A302CA4C5E600F43BDB /* libargon2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56687A2F2CA4C5E600F43BDB /* libargon2.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,9 @@
 		561BFC332C98F34900E6B5E9 /* boringAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boringAppUITests.swift; sourceTree = "<group>"; };
 		561BFC352C98F34900E6B5E9 /* boringAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boringAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		561BFC422CA14B1500E6B5E9 /* KeychainHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHandler.swift; sourceTree = "<group>"; };
+		56687A2D2CA4C5E600F43BDB /* argon2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argon2.h; sourceTree = "<group>"; };
+		56687A2F2CA4C5E600F43BDB /* libargon2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libargon2.a; sourceTree = "<group>"; };
+		56687A312CA4C79000F43BDB /* boringApp-Bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "boringApp-Bridging-header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56687A302CA4C5E600F43BDB /* libargon2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,12 +102,14 @@
 		561BFC162C98F34800E6B5E9 /* boringApp */ = {
 			isa = PBXGroup;
 			children = (
+				56687A2C2CA4C5A400F43BDB /* External Libraries */,
 				561BFC172C98F34800E6B5E9 /* boringAppApp.swift */,
 				561BFC192C98F34800E6B5E9 /* ContentView.swift */,
 				561BFC1B2C98F34800E6B5E9 /* Assets.xcassets */,
 				561BFC1D2C98F34800E6B5E9 /* boringApp.entitlements */,
 				561BFC1E2C98F34800E6B5E9 /* Preview Content */,
 				561BFC422CA14B1500E6B5E9 /* KeychainHandler.swift */,
+				56687A312CA4C79000F43BDB /* boringApp-Bridging-header.h */,
 			);
 			path = boringApp;
 			sourceTree = "<group>";
@@ -130,6 +137,23 @@
 				561BFC352C98F34900E6B5E9 /* boringAppUITestsLaunchTests.swift */,
 			);
 			path = boringAppUITests;
+			sourceTree = "<group>";
+		};
+		56687A2C2CA4C5A400F43BDB /* External Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				56687A2E2CA4C5E600F43BDB /* include */,
+				56687A2F2CA4C5E600F43BDB /* libargon2.a */,
+			);
+			path = "External Libraries";
+			sourceTree = "<group>";
+		};
+		56687A2E2CA4C5E600F43BDB /* include */ = {
+			isa = PBXGroup;
+			children = (
+				56687A2D2CA4C5E600F43BDB /* argon2.h */,
+			);
+			path = include;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -439,6 +463,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/boringApp/External\\ Libraries",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Rodrigo-Ortiz.boringApp";
@@ -446,6 +474,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "boringApp/boringApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -475,6 +504,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/boringApp/External\\ Libraries",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Rodrigo-Ortiz.boringApp";
@@ -482,6 +515,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "boringApp/boringApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
