@@ -18,7 +18,7 @@ struct KeychainHandler {
         case passwordHashingFailed
     }
     
-    static func genSalt() -> Data? {
+    static func genSalt() -> (Data?, SaltGenerationError?) {
         let bytes = 16 // Immutable
         var salt = Data(count: bytes) // Create Data object for salt
         
@@ -28,14 +28,12 @@ struct KeychainHandler {
         }
         
         // Check the success of the random byte generation
-        if genStatus == errSecSuccess {
-            return salt
-        } else {
+        if genStatus != errSecSuccess {
             print("Failed to generate salt")
-            return nil
+            return (nil, .saltGenerationFailed)
         }
         
-        return salt
+        return (salt, nil)
     }
     
     static func hashPassword(password: String, withSalt salt: Data) -> Data? {
@@ -48,6 +46,7 @@ struct KeychainHandler {
         // Hash the password
         var hash = [UInt8](repeating: 0, count: 32)
         let hashLength = 32 // Change this based on your needs
+        
         
         
     }
