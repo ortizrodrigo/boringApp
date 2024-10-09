@@ -15,7 +15,8 @@ struct KeychainHandler {
     }
     
     enum PasswordHashingError: Error {
-        case passwordHashingFailed
+        case dataConversionFailed
+        case hashingFailed
     }
     
     static func genSalt() -> (Data?, SaltGenerationError?) {
@@ -36,19 +37,38 @@ struct KeychainHandler {
         return (salt, nil)
     }
     
-    static func hashPassword(password: String, withSalt salt: Data) -> Data? {
-        // Convert password: String to passwordData: Data
+    static func hashPassword(password: String, withSalt salt: Data) -> (Data?, PasswordHashingError?) {
+        // Convert the password to Data
         guard let passwordData = password.data(using: .utf8) else {
-            print("Failed to convert password to Data object")
-            return nil
+            return (nil, .dataConversionFailed)
         }
         
-        // Hash the password
-        var hash = [UInt8](repeating: 0, count: 32)
-        let hashLength = 32 // Change this based on your needs
+        // Fixed output size: 32 bytes (256 bits)
+        let outputSize = 32
+        var hash = Data(count: outputSize)
         
+        // Use Argon2 to hash the password
+        let result = hash.withUnsafeMutableBytes { outputPtr in
+            passwordData.withUnsafeBytes { passwordPtr in
+                salt.withUnsafeBytes { saltPtr in
+                    argon2i_hash_raw(
+                        2,  // Number of iterations
+                        1 << 16,  // Memory usage (64 MiB)
+                        1,  // Parallelism (1 thread)
+                        passwordPtr.baseAddress!, passwordData.count,
+                        saltPtr.baseAddress!, salt.count,
+                        outputPtr.baseAddress!, outputSize
+                    )
+                }
+            }
+        }
         
+        // Compare the result using rawValue of Argon2_ErrorCodes
+        if result != ARGON2_OK.rawValue {
+            return (nil, .hashingFailed)
+        }
         
+        return (hash, nil)
     }
     
     static func storePassword(username: String, password: String) {
