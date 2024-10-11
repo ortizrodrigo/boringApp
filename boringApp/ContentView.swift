@@ -23,6 +23,9 @@ struct ContentView: View {
             if loggedIn {
                 Text("Welcome, \(username)!")
             } else {
+                
+                Spacer()
+                
                 Text("Please log in or sign up.")
                 
                 TextField("Username", text: $username)
@@ -49,19 +52,29 @@ struct ContentView: View {
                         // Validate password: at least 8 characters
                         passwordValid = newValue.count >= 8
                     }
-                                
-                Button("Login") {
-                    login()
-                }
+                       
+                Text(message)
+                    .foregroundColor(.red)
+                
+                Spacer()
+                
+                Button(
+                    action: login,
+                    label: {
+                        Text("Login")
+                            .font(.system(size: 24, weight: .bold, design: .default))
+                            .frame(maxWidth: .infinity, maxHeight: 60)
+                            .foregroundColor(Color.white)
+                            .background(Color(red: 248/255, green: 187/255, blue: 128/255)) // f67280
+                            .cornerRadius(10)
+                    }
+                )
                 .padding()
                 
                 Button("Sign Up") {
                     signUp()
                 }
-                .padding()
                 
-                Text(message)
-                    .foregroundColor(.red)
             }
         }
         .padding()
