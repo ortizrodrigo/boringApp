@@ -7,6 +7,7 @@
 
 import Foundation
 import Security
+import CryptoKit
 
 struct KeychainHandler {
     
@@ -43,38 +44,21 @@ struct KeychainHandler {
         return (salt, nil)
     }
     
-    static func hashPassword(password: String, withSalt salt: Data) -> (Data?, PasswordHashingError?) {
-        // Convert the password to Data
+    static func hashPassword(password: String, salt: Data) -> Data? {
         guard let passwordData = password.data(using: .utf8) else {
-            return (nil, .dataConversionFailed)
+            return nil
         }
         
-        // Fixed output size: 32 bytes (256 bits)
-        let outputSize = 32
-        var hash = Data(count: outputSize)
+        let hashed = HKDF<SHA256>.deriveKey(
+            inputKeyMaterial: SymmetricKey(data: passwordData),
+            salt: salt,
+            info: Data(),
+            outputByteCount: 32 // 256-bit output
+        )
         
-        // Use Argon2 to hash the password
-        let result = hash.withUnsafeMutableBytes { outputPtr in
-            passwordData.withUnsafeBytes { passwordPtr in
-                salt.withUnsafeBytes { saltPtr in
-                    argon2i_hash_raw(
-                        2,  // Number of iterations
-                        1 << 16,  // Memory usage (64 MiB)
-                        1,  // Parallelism (1 thread)
-                        passwordPtr.baseAddress!, passwordData.count,
-                        saltPtr.baseAddress!, salt.count,
-                        outputPtr.baseAddress!, outputSize
-                    )
-                }
-            }
+        return hashed.withUnsafeBytes { bytes in
+            return Data(bytes)
         }
-        
-        // Compare the result using rawValue of Argon2_ErrorCodes
-        if result != ARGON2_OK.rawValue {
-            return (nil, .hashingFailed)
-        }
-        
-        return (hash, nil)
     }
     
     static func storeCredentials(username: String, password: String) -> KeychainError? {
@@ -84,16 +68,15 @@ struct KeychainHandler {
             return .storageFailed
         }
         
-        // Hash the password with the salt
-        let hashResult = hashPassword(password: password, withSalt: salt)
-        guard let hashedPassword = hashResult.0, hashResult.1 == nil else {
+        // Hash the password with the salt using CryptoKit
+        guard let hashedPassword = hashPassword(password: password, salt: salt) else {
             return .storageFailed
         }
         
+        // Store salt and hashed password in Keychain
         let saltKey = "\(username)_salt"
         let hashKey = "\(username)_hash"
         
-        // Store salt and hashed password in Keychain deterministically with the username
         let saltStatus = storeToKeychain(key: saltKey, data: salt)
         let hashStatus = storeToKeychain(key: hashKey, data: hashedPassword)
         
@@ -103,6 +86,7 @@ struct KeychainHandler {
         
         return nil // Success
     }
+
     
     static func verifyCredentials(username: String, password: String) -> (Bool, KeychainError?) {
         let saltKey = "\(username)_salt"
@@ -114,9 +98,8 @@ struct KeychainHandler {
             return (false, .retrievalFailed)
         }
         
-        // Hash the password with the retrieved salt
-        let hashResult = hashPassword(password: password, withSalt: storedSalt)
-        guard let hashedPassword = hashResult.0, hashResult.1 == nil else {
+        // Hash the password with the salt using CryptoKit
+        guard let hashedPassword = hashPassword(password: password, salt: storedSalt) else {
             return (false, .verificationFailed)
         }
         
