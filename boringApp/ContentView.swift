@@ -24,14 +24,21 @@ struct ContentView: View {
                 Text("Welcome, \(username)!")
             } else {
                 
-                Spacer()
                 
-                Text("Please log in or sign up.")
+                
+                Text("Not So Boring App")
+                    .font(.system(size: 54, weight: .bold, design: .default))
+                    .foregroundColor(Color(red: 248/255, green: 177/255, blue: 149/255))
+                    .padding(.top, 50)
+                    .padding(.bottom, 20)
+
+                Spacer()
                 
                 TextField("Username", text: $username)
                     .autocorrectionDisabled()
-                    .padding()
-                    .border(usernameValid ? Color.green : Color.gray, width: 3)
+                    .padding(.top, 20)
+                    .padding(.leading, 12)
+                    //.border(usernameValid ? Color.green : Color.gray, width: 3)
                     .onChange(of: username) { _, newValue in
                         username = newValue.lowercased()
                         
@@ -45,13 +52,18 @@ struct ContentView: View {
                         UserDefaults.standard.set(username, forKey: "lastUsername")
                     }
                 
+                Divider()
+                
                 SecureField("Password", text: $password)
-                    .padding()
-                    .border(passwordValid ? Color.green : Color.gray, width: 3)
+                    .padding(.top, 20)
+                    .padding(.leading, 12)
+                    //.border(passwordValid ? Color.green : Color.gray, width: 3)
                     .onChange(of: password) { _, newValue in
                         // Validate password: at least 8 characters
                         passwordValid = newValue.count >= 8
                     }
+                
+                Divider()
                        
                 Text(message)
                     .foregroundColor(.red)
@@ -74,6 +86,7 @@ struct ContentView: View {
                 Button("Sign Up") {
                     signUp()
                 }
+                .foregroundColor(Color(red: 248/255, green: 187/255, blue: 128/255))
                 
             }
         }
