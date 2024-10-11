@@ -11,27 +11,84 @@ struct ContentView: View {
     @State private var username: String = UserDefaults.standard.string(forKey: "lastUsername") ?? ""
     @State private var password: String = ""
     
+    @State private var usernameValid: Bool = false
+    @State private var passwordValid: Bool = false
+    
+    @State private var loggedIn: Bool = false
+    @State private var message: String = ""
+    
     var body: some View {
-        VStack {
-            Text("Hello, \(username)!")
+        VStack() {
             
-            TextField("Username", text: $username)
-                            .padding()
-                            .border(Color.gray, width: 1)
-                            .onChange(of: username) { _, newValue in
-                                UserDefaults.standard.set(newValue, forKey: "lastUsername")
-                            }
-            
-            SecureField("Password", text: $password)
+            if loggedIn {
+                Text("Welcome, \(username)!")
+            } else {
+                Text("Please log in or sign up.")
+                
+                TextField("Username", text: $username)
+                    .autocorrectionDisabled()
+                    .padding()
+                    .border(usernameValid ? Color.green : Color.gray, width: 3)
+                    .onChange(of: username) { _, newValue in
+                        username = newValue.lowercased()
+                        
+                        let validCharacters = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz0123456789._")
+                        let filtered = username.unicodeScalars.filter { validCharacters.contains($0) }
+                        
+                        username = String(String.UnicodeScalarView(filtered))
+                        
+                        usernameValid = !username.isEmpty && username.count <= 30
+
+                        UserDefaults.standard.set(username, forKey: "lastUsername")
+                    }
+                
+                SecureField("Password", text: $password)
+                    .padding()
+                    .border(passwordValid ? Color.green : Color.gray, width: 3)
+                    .onChange(of: password) { _, newValue in
+                        // Validate password: at least 8 characters
+                        passwordValid = newValue.count >= 8
+                    }
+                                
+                Button("Login") {
+                    login()
+                }
                 .padding()
-                .border(Color.gray, width: 1)
-            
-            Button("Login") {
-                 // add logic
+                
+                Button("Sign Up") {
+                    signUp()
+                }
+                .padding()
+                
+                Text(message)
+                    .foregroundColor(.red)
             }
         }
         .padding()
     }
+    
+    func signUp() {
+        if KeychainHandler.userExists(username: username) {
+            message = "Username already exists!"
+        } else {
+            if let error = KeychainHandler.storeCredentials(username: username, password: password) {
+                message = "Sign up failed: \(error)"
+            } else {
+                message = "Sign up successful! Please log in."
+            }
+        }
+    }
+    
+    func login() {
+        let (success, error) = KeychainHandler.verifyCredentials(username: username, password: password)
+        if success {
+            loggedIn = true
+            message = "Login successful!"
+        } else {
+            message = "Login failed: \(error?.localizedDescription ?? "Unknown error")"
+        }
+    }
+    
 }
 
 #Preview {
