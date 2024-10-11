@@ -10,16 +10,22 @@ import Security
 
 struct KeychainHandler {
     
-    enum KeychainError: Error {
+    enum SaltGenerationError: Error {
         case saltGenerationFailed
-        case storeFailed
-        case retrieveFailed
+    }
+    
+    enum PasswordHashingError: Error {
         case dataConversionFailed
         case hashingFailed
+    }
+    
+    enum KeychainError: Error {
+        case storageFailed
+        case retrievalFailed
         case verificationFailed
     }
     
-    static func genSalt() -> (Data?, KeychainError?) {
+    static func genSalt() -> (Data?, SaltGenerationError?) {
         let bytes = 16 // Immutable
         var salt = Data(count: bytes) // Create Data object for salt
         
@@ -37,7 +43,7 @@ struct KeychainHandler {
         return (salt, nil)
     }
     
-    static func hashPassword(password: String, withSalt salt: Data) -> (Data?, KeychainError?) {
+    static func hashPassword(password: String, withSalt salt: Data) -> (Data?, PasswordHashingError?) {
         // Convert the password to Data
         guard let passwordData = password.data(using: .utf8) else {
             return (nil, .dataConversionFailed)
@@ -75,68 +81,106 @@ struct KeychainHandler {
         // Generate a salt
         let saltResult = genSalt()
         guard let salt = saltResult.0, saltResult.1 == nil else {
-            return .saltGenerationFailed
+            return .storageFailed
         }
         
         // Hash the password with the salt
         let hashResult = hashPassword(password: password, withSalt: salt)
         guard let hashedPassword = hashResult.0, hashResult.1 == nil else {
-            return .hashingFailed
+            return .storageFailed
         }
         
-        // Store the salt, hashed password, and username in the Keychain
-        let combinedData = salt + hashedPassword
+        let saltKey = "\(username)_salt"
+        let hashKey = "\(username)_hash"
         
-        let keychainQuery: [String: Any] = [
+        // Store salt and hashed password in Keychain deterministically with the username
+        let saltStatus = storeToKeychain(key: saltKey, data: salt)
+        let hashStatus = storeToKeychain(key: hashKey, data: hashedPassword)
+        
+        if saltStatus != errSecSuccess || hashStatus != errSecSuccess {
+            return .storageFailed
+        }
+        
+        return nil // Success
+    }
+    
+    static func verifyCredentials(username: String, password: String) -> (Bool, KeychainError?) {
+        let saltKey = "\(username)_salt"
+        let hashKey = "\(username)_hash"
+        
+        // retrieve storedSalt
+        guard let storedSalt = retrieveFromKeychain(key: saltKey),
+              let storedHash = retrieveFromKeychain(key: hashKey) else {
+            return (false, .retrievalFailed)
+        }
+        
+        // Hash the password with the retrieved salt
+        let hashResult = hashPassword(password: password, withSalt: storedSalt)
+        guard let hashedPassword = hashResult.0, hashResult.1 == nil else {
+            return (false, .verificationFailed)
+        }
+        
+        // Use constant-time comparison to avoid timing attacks
+        if !constantTimeCompare(hashedPassword, storedHash) {
+            return (false, .verificationFailed)
+        }
+        
+        return (true, nil) // Success
+    }
+    
+    static func userExists(username: String) -> Bool {
+        let saltKey = "\(username)_salt"
+        
+        // Attempt to retrieve the user's salt from the Keychain
+        if let _ = retrieveFromKeychain(key: saltKey) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    private static func storeToKeychain(key: String, data: Data) -> OSStatus {
+        let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: username,
-            kSecValueData as String: combinedData
+            kSecAttrAccount as String: key,
+            kSecValueData as String: data
         ]
         
-        let status = SecItemAdd(keychainQuery as CFDictionary, nil)
+        // Add or update the item
+        SecItemDelete(query as CFDictionary)
+        return SecItemAdd(query as CFDictionary, nil)
+    }
+    
+    // Helper to retrieve data from Keychain
+    private static func retrieveFromKeychain(key: String) -> Data? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key,
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
         
-        if status != errSecSuccess {
-            return .storeFailed
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        
+        if status == errSecSuccess, let data = result as? Data {
+            return data
         }
         
         return nil
     }
     
-    // Retrieve and verify credentials
-    static func verifyCredentials(username: String, password: String) -> (Bool, KeychainError?) {
-        let keychainQuery: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: username,
-            kSecReturnData as String: kCFBooleanTrue!,
-            kSecMatchLimit as String: kSecMatchLimitOne
-        ]
-        
-        var retrievedData: AnyObject?
-        let status = SecItemCopyMatching(keychainQuery as CFDictionary, &retrievedData)
-        
-        if status != errSecSuccess {
-            return (false, .retrieveFailed)
+    private static func constantTimeCompare(_ data1: Data, _ data2: Data) -> Bool {
+        guard data1.count == data2.count else {
+            return false
         }
         
-        guard let storedData = retrievedData as? Data else {
-            return (false, .retrieveFailed)
+        var result: UInt8 = 0
+        for i in 0..<data1.count {
+            result |= data1[i] ^ data2[i]
         }
-        
-        // Split the stored data into salt and hashed password
-        let salt = storedData.prefix(16) // First 16 bytes are the salt
-        let storedHash = storedData.suffix(from: 16) // Remaining bytes are the hashed password
-        
-        // Hash the provided password with the stored salt
-        let hashResult = hashPassword(password: password, withSalt: salt)
-        guard let hashedPassword = hashResult.0, hashResult.1 == nil else {
-            return (false, .hashingFailed)
-        }
-        
-        // Compare the hashes
-        if hashedPassword != storedHash {
-            return (false, .verificationFailed)
-        }
-        return (true, nil)
+        return result == 0
     }
+    
 }
 
