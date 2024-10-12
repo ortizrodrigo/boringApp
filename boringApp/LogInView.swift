@@ -1,20 +1,21 @@
 //
-//  ContentView.swift
+//  LogInView.swift
 //  boringApp
 //
-//  Created by Rodrigo Ortiz on 16/09/24.
+//  Created by Rodrigo Ortiz on 11/10/24.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct LogInView: View {
     @State private var username: String = UserDefaults.standard.string(forKey: "lastUsername") ?? ""
     @State private var password: String = ""
     
     @State private var usernameValid: Bool = false
     @State private var passwordValid: Bool = false
-    
     @State private var loggedIn: Bool = false
+    @State private var goToSignUpView: Bool = false
+    
     @State private var message: String = ""
     
     var body: some View {
@@ -85,19 +86,6 @@ struct ContentView: View {
         }
     }
     
-    
-    func signUp() {
-        if KeychainHandler.userExists(username: username) {
-            message = "Username already exists!"
-        } else {
-            if let error = KeychainHandler.storeCredentials(username: username, password: password) {
-                message = "Sign up failed: \(error)"
-            } else {
-                message = "Sign up successful! Please log in."
-            }
-        }
-    }
-    
     func login() {
         let (success, error) = KeychainHandler.verifyCredentials(username: username, password: password)
         if success {
@@ -111,5 +99,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    LogInView()
 }

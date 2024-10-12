@@ -11,7 +11,7 @@ import SwiftUI
 struct boringAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LogInView()
         }
     }
 }
