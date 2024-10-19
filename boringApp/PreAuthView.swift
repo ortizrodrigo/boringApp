@@ -24,73 +24,71 @@ struct PreAuthView: View {
     
     var body: some View {
         
-        ZStack {
-            
-            Summer.white.ignoresSafeArea()
-            
-            
-            VStack {
+        NavigationView {
+            ZStack {
                 
-                Text("Boring App") // CronUs
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .font(.system(size: 54, design: .default))
-                    .foregroundColor(Summer.black)
-                    .padding(.top, 50)
-                    .padding(.bottom, 20)
-                
-                // Placeholder for your company logo
-                Image(systemName: "bubble.left.and.text.bubble.right")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 200, height: 200)
-                    .foregroundColor(Summer.sky)
+                Summer.white.ignoresSafeArea()
                 
                 
-                Text("Plan and Have Fun!")
-                    .font(.title)
-                    .fontWeight(.bold)
+                VStack {
+                    
+                    Text("Boring App") // CronUs
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                        .font(.system(size: 54, design: .default))
+                        .foregroundColor(Summer.black)
+                        .padding(.top, 50)
+                        .padding(.bottom, 20)
+                    
+                    // Placeholder for your company logo
+                    Image(systemName: "bubble.left.and.text.bubble.right")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200, height: 200)
+                        .foregroundColor(Summer.sky)
+                    
+                    
+                    Text("Plan and Have Fun!")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding()
+                    
+                    Text("Accelerate Your Social Life!")
+                        .font(.subheadline)
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom, 30)
+                    
+                    HStack {
+                        
+                        
+                        NavigationLink(destination: LogInView()) {
+                            Text("Log In")
+                                .font(.system(size: 22))
+                                .fontWeight(.semibold)
+                                .frame(minWidth: 0, maxWidth: .infinity)
+                                .padding()
+                                .background(Summer.coral)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        
+                        NavigationLink(destination: SignUpView()) {
+                            Text("Sign Up")
+                                .font(.system(size: 22))
+                                .fontWeight(.semibold)
+                                .frame(minWidth: 0, maxWidth: .infinity)
+                                .padding()
+                                .background(Summer.sun)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        
+                    } // HStack
                     .padding()
-                
-                Text("Accelerate Your Social Life!")
-                    .font(.subheadline)
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom, 30)
-                
-                HStack {
-                    Button(action: {
-                        // Implement login functionality
-                        print("Login tapped")
-                    }) {
-                        Text("Log In")
-                            .font(.system(size: 22))
-                            .fontWeight(.semibold)
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding()
-                            .background(Summer.coral)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    
-                    Button(action: {
-                        // Implement signup functionality
-                        print("Signup tapped")
-                    }) {
-                        Text("Sign Up")
-                            .font(.system(size: 22))
-                            .fontWeight(.semibold)
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding()
-                            .background(Summer.sun)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    
-                } // HStack
+                } // VStack
                 .padding()
-            } // VStack
-            .padding()
-        } // ZStack
+            } // ZStack
+        }
     }
 }
 
