@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		560815432CC33802004184CB /* PreAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560815422CC337FE004184CB /* PreAuthView.swift */; };
 		561BFC182C98F34800E6B5E9 /* boringAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC172C98F34800E6B5E9 /* boringAppApp.swift */; };
 		561BFC1A2C98F34800E6B5E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC192C98F34800E6B5E9 /* ContentView.swift */; };
 		561BFC1C2C98F34800E6B5E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 561BFC1B2C98F34800E6B5E9 /* Assets.xcassets */; };
@@ -15,6 +16,8 @@
 		561BFC342C98F34900E6B5E9 /* boringAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC332C98F34900E6B5E9 /* boringAppUITests.swift */; };
 		561BFC362C98F34900E6B5E9 /* boringAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC352C98F34900E6B5E9 /* boringAppUITestsLaunchTests.swift */; };
 		561BFC432CA14B1500E6B5E9 /* KeychainHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC422CA14B1500E6B5E9 /* KeychainHandler.swift */; };
+		5625E1962CBA308B0013F9F7 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5625E1952CBA307F0013F9F7 /* LogInView.swift */; };
+		5625E1982CBA326E0013F9F7 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5625E1972CBA32670013F9F7 /* SignUpView.swift */; };
 		56687A302CA4C5E600F43BDB /* libargon2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56687A2F2CA4C5E600F43BDB /* libargon2.a */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		560815422CC337FE004184CB /* PreAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreAuthView.swift; sourceTree = "<group>"; };
 		561BFC142C98F34800E6B5E9 /* boringApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boringApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		561BFC172C98F34800E6B5E9 /* boringAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boringAppApp.swift; sourceTree = "<group>"; };
 		561BFC192C98F34800E6B5E9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,6 +52,8 @@
 		561BFC332C98F34900E6B5E9 /* boringAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boringAppUITests.swift; sourceTree = "<group>"; };
 		561BFC352C98F34900E6B5E9 /* boringAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boringAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		561BFC422CA14B1500E6B5E9 /* KeychainHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHandler.swift; sourceTree = "<group>"; };
+		5625E1952CBA307F0013F9F7 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		5625E1972CBA32670013F9F7 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		56687A2D2CA4C5E600F43BDB /* argon2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argon2.h; sourceTree = "<group>"; };
 		56687A2F2CA4C5E600F43BDB /* libargon2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libargon2.a; sourceTree = "<group>"; };
 		56687A312CA4C79000F43BDB /* boringApp-Bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "boringApp-Bridging-header.h"; sourceTree = "<group>"; };
@@ -102,6 +108,9 @@
 		561BFC162C98F34800E6B5E9 /* boringApp */ = {
 			isa = PBXGroup;
 			children = (
+				560815422CC337FE004184CB /* PreAuthView.swift */,
+				5625E1972CBA32670013F9F7 /* SignUpView.swift */,
+				5625E1952CBA307F0013F9F7 /* LogInView.swift */,
 				56687A2C2CA4C5A400F43BDB /* External Libraries */,
 				561BFC172C98F34800E6B5E9 /* boringAppApp.swift */,
 				561BFC192C98F34800E6B5E9 /* ContentView.swift */,
@@ -287,7 +296,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				561BFC1A2C98F34800E6B5E9 /* ContentView.swift in Sources */,
+				5625E1982CBA326E0013F9F7 /* SignUpView.swift in Sources */,
+				560815432CC33802004184CB /* PreAuthView.swift in Sources */,
 				561BFC182C98F34800E6B5E9 /* boringAppApp.swift in Sources */,
+				5625E1962CBA308B0013F9F7 /* LogInView.swift in Sources */,
 				561BFC432CA14B1500E6B5E9 /* KeychainHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

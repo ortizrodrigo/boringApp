@@ -62,7 +62,7 @@ struct SignUpView: View {
                             .font(.system(size: 24, weight: .bold, design: .default))
                             .frame(maxWidth: .infinity, maxHeight: 60)
                             .foregroundColor(Color.white)
-                            .background(Color(red: 248/255, green: 187/255, blue: 128/255))
+                            .background(Color(red: 253/255, green: 219/255, blue: 115/255))
                             .cornerRadius(10)
                     }
                 )
@@ -70,7 +70,7 @@ struct SignUpView: View {
                 
                 NavigationLink(destination: LogInView()) {
                     Text("Already have an account? Log In")
-                        .foregroundColor(Color(red: 248/255, green: 187/255, blue: 128/255))
+                        .foregroundColor(Color(red: 253/255, green: 219/255, blue: 115/255))
                 }
                 
             }
