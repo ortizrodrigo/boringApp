@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		560815432CC33802004184CB /* PreAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560815422CC337FE004184CB /* PreAuthView.swift */; };
+		560815452CC61D3A004184CB /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560815442CC614F2004184CB /* Common.swift */; };
+		560815472CC76382004184CB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560815462CC76371004184CB /* ProfileView.swift */; };
+		560815492CC763A8004184CB /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560815482CC763A4004184CB /* SearchView.swift */; };
+		5608154B2CC763C0004184CB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5608154A2CC763BD004184CB /* MapView.swift */; };
+		5608154D2CC763D6004184CB /* MemoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5608154C2CC763D2004184CB /* MemoryView.swift */; };
+		5608154F2CC763F3004184CB /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5608154E2CC763E6004184CB /* MessageView.swift */; };
 		561BFC182C98F34800E6B5E9 /* boringAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC172C98F34800E6B5E9 /* boringAppApp.swift */; };
 		561BFC1A2C98F34800E6B5E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC192C98F34800E6B5E9 /* ContentView.swift */; };
 		561BFC1C2C98F34800E6B5E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 561BFC1B2C98F34800E6B5E9 /* Assets.xcassets */; };
@@ -40,6 +46,12 @@
 
 /* Begin PBXFileReference section */
 		560815422CC337FE004184CB /* PreAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreAuthView.swift; sourceTree = "<group>"; };
+		560815442CC614F2004184CB /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		560815462CC76371004184CB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		560815482CC763A4004184CB /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		5608154A2CC763BD004184CB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		5608154C2CC763D2004184CB /* MemoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryView.swift; sourceTree = "<group>"; };
+		5608154E2CC763E6004184CB /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		561BFC142C98F34800E6B5E9 /* boringApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boringApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		561BFC172C98F34800E6B5E9 /* boringAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boringAppApp.swift; sourceTree = "<group>"; };
 		561BFC192C98F34800E6B5E9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -108,6 +120,12 @@
 		561BFC162C98F34800E6B5E9 /* boringApp */ = {
 			isa = PBXGroup;
 			children = (
+				5608154E2CC763E6004184CB /* MessageView.swift */,
+				5608154C2CC763D2004184CB /* MemoryView.swift */,
+				5608154A2CC763BD004184CB /* MapView.swift */,
+				560815482CC763A4004184CB /* SearchView.swift */,
+				560815462CC76371004184CB /* ProfileView.swift */,
+				560815442CC614F2004184CB /* Common.swift */,
 				560815422CC337FE004184CB /* PreAuthView.swift */,
 				5625E1972CBA32670013F9F7 /* SignUpView.swift */,
 				5625E1952CBA307F0013F9F7 /* LogInView.swift */,
@@ -295,12 +313,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5608154F2CC763F3004184CB /* MessageView.swift in Sources */,
+				560815472CC76382004184CB /* ProfileView.swift in Sources */,
+				560815492CC763A8004184CB /* SearchView.swift in Sources */,
 				561BFC1A2C98F34800E6B5E9 /* ContentView.swift in Sources */,
 				5625E1982CBA326E0013F9F7 /* SignUpView.swift in Sources */,
 				560815432CC33802004184CB /* PreAuthView.swift in Sources */,
+				5608154D2CC763D6004184CB /* MemoryView.swift in Sources */,
 				561BFC182C98F34800E6B5E9 /* boringAppApp.swift in Sources */,
 				5625E1962CBA308B0013F9F7 /* LogInView.swift in Sources */,
+				5608154B2CC763C0004184CB /* MapView.swift in Sources */,
 				561BFC432CA14B1500E6B5E9 /* KeychainHandler.swift in Sources */,
+				560815452CC61D3A004184CB /* Common.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
