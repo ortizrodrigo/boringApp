@@ -28,13 +28,10 @@ struct PreAuthView: View {
                         .padding(.top, 50)
                         .padding(.bottom, 20)
                     
-                    // Placeholder for logo
-                    Image(systemName: "bubble.left.and.text.bubble.right")
+                    Image("AppLogo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 200, height: 200)
-                        .foregroundColor(Summer.sky)
-                    
                     
                     Text("Plan and Have Fun!")
                         .font(.title)

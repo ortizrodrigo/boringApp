@@ -14,6 +14,7 @@
 		5608154B2CC763C0004184CB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5608154A2CC763BD004184CB /* MapView.swift */; };
 		5608154D2CC763D6004184CB /* MemoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5608154C2CC763D2004184CB /* MemoryView.swift */; };
 		5608154F2CC763F3004184CB /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5608154E2CC763E6004184CB /* MessageView.swift */; };
+		560815512CC76FDA004184CB /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560815502CC76FD5004184CB /* TempView.swift */; };
 		561BFC182C98F34800E6B5E9 /* boringAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC172C98F34800E6B5E9 /* boringAppApp.swift */; };
 		561BFC1A2C98F34800E6B5E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561BFC192C98F34800E6B5E9 /* ContentView.swift */; };
 		561BFC1C2C98F34800E6B5E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 561BFC1B2C98F34800E6B5E9 /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		5608154A2CC763BD004184CB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5608154C2CC763D2004184CB /* MemoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryView.swift; sourceTree = "<group>"; };
 		5608154E2CC763E6004184CB /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		560815502CC76FD5004184CB /* TempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		561BFC142C98F34800E6B5E9 /* boringApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boringApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		561BFC172C98F34800E6B5E9 /* boringAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boringAppApp.swift; sourceTree = "<group>"; };
 		561BFC192C98F34800E6B5E9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 		561BFC162C98F34800E6B5E9 /* boringApp */ = {
 			isa = PBXGroup;
 			children = (
+				560815502CC76FD5004184CB /* TempView.swift */,
 				5608154E2CC763E6004184CB /* MessageView.swift */,
 				5608154C2CC763D2004184CB /* MemoryView.swift */,
 				5608154A2CC763BD004184CB /* MapView.swift */,
@@ -319,6 +322,7 @@
 				561BFC1A2C98F34800E6B5E9 /* ContentView.swift in Sources */,
 				5625E1982CBA326E0013F9F7 /* SignUpView.swift in Sources */,
 				560815432CC33802004184CB /* PreAuthView.swift in Sources */,
+				560815512CC76FDA004184CB /* TempView.swift in Sources */,
 				5608154D2CC763D6004184CB /* MemoryView.swift in Sources */,
 				561BFC182C98F34800E6B5E9 /* boringAppApp.swift in Sources */,
 				5625E1962CBA308B0013F9F7 /* LogInView.swift in Sources */,
