@@ -10,7 +10,7 @@ import SwiftUI
 struct SignUpView: View {
     @State private var username: String = ""
     @State private var password: String = ""
-    @State private var message: String = ""
+    @State private var errorMessage: String = ""
     @State private var usernameValid: Bool = false
     @State private var passwordValid: Bool = false
 
@@ -48,23 +48,46 @@ struct SignUpView: View {
                         .background(Summer.white)
                         .cornerRadius(10)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 10) // Same corner radius as above
-                                .stroke(Color.gray, lineWidth: 1) // Border color and width
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray, lineWidth: 1)
                         )
                         .onChange(of: username) { _, newValue in
+                            // Standarize all usernames as lowercase and within ValidSets.username
                             username = newValue.lowercased()
                             let filtered = username.unicodeScalars.filter {
                                 ValidSets.username.contains($0)
                             }
                             
-                            username = String(String.UnicodeScalarView(filtered))
+                            // Ensure the error message is reset between changes to username
+                            errorMessage = ""
+                            
+                            // Prevent users from typing more than 30 characters
                             if username.count > 30 {
                                 username = String(username.prefix(30))
                             }
                             
-                            usernameValid = !username.isEmpty && username.count <= 30
+                            // Handle error messages in priority order
+                            if username.count < 3 {
+                                errorMessage = "Usernames must have at least 3 characters."
+                            } else if filtered.count != username.count {
+                                errorMessage = "Usernames can only use letters (a-z), numbers (0-9), '.', and '_'."
+                            } else if username.hasPrefix(".") || username.hasSuffix(".") {
+                                errorMessage = "Usernames cannot start or end with a period ('.')."
+                            }
+                            
+                            // Calculate username's validity for processing and error message display
+                            usernameValid = filtered.count != username.count && !username.hasPrefix(".") && !username.hasSuffix(".") && username.count >= 3
+                            
+                            // Store last username
                             UserDefaults.standard.set(username, forKey: "lastUsername")
                         }
+                    
+                    // Ensure error message is only displayed when necessary
+                    if !usernameValid && !username.isEmpty && !errorMessage.isEmpty {
+                        Text(errorMessage)
+                               .font(.footnote)
+                               .foregroundColor(.red)
+                    }
                     
                     SecureField("Password", text: $password)
                         .frame(width: 300, height: 40)
@@ -82,7 +105,16 @@ struct SignUpView: View {
                             passwordValid = newValue.count >= 8
                         }
                     
-                    Text(message)
+                    if !passwordValid && !password.isEmpty {
+                        Text("Create a password at least 8 characters long.")
+                               .font(.footnote)
+                               .foregroundColor(.red)
+                    }
+                    
+                    
+                    
+                    
+                    Text(errorMessage)
                         .foregroundColor(.red)
                     
                     Spacer()
@@ -119,12 +151,12 @@ struct SignUpView: View {
     
     func signUp() {
         if KeychainHandler.userExists(username: username) {
-            message = "Username already exists!"
+            errorMessage = "Username already exists!"
         } else {
             if let error = KeychainHandler.storeCredentials(username: username, password: password) {
-                message = "Sign up failed: \(error)"
+                errorMessage = "Sign up failed: \(error)"
             } else {
-                message = "Sign up successful! Please log in."
+                errorMessage = "Sign up successful! Please log in."
             }
         }
     }
