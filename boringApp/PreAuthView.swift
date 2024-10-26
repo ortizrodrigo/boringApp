@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct PreAuthView: View {
-    @State private var username = ""
-    @State private var password = ""
+    @State private var navigateTo: String? = nil
     
     var body: some View {
         
-        NavigationView {
+        NavigationStack {
+            
             ZStack {
                 
                 Summer.white.ignoresSafeArea()
                 
                 VStack {
                     
-                    Text("Boring App") // CronUs
+                    Text("BoringApp") // CronUs
                         .fontWeight(.bold)
                         .multilineTextAlignment(.center)
                         .font(.system(size: 54, design: .default))
@@ -44,7 +44,6 @@ struct PreAuthView: View {
                         .padding(.bottom, 30)
                     
                     HStack {
-                        
                         
                         NavigationLink(destination: LogInView()) {
                             Text("Log In")
@@ -73,9 +72,12 @@ struct PreAuthView: View {
                 } // VStack
                 .padding()
             } // ZStack
-        }
-    }
-}
+            
+        } // NavigationStack
+        
+    } // body
+    
+} // preAuthView
 
 #Preview {
     PreAuthView()
