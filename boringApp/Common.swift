@@ -20,4 +20,6 @@ struct Summer {
 
 struct ValidSets {
     static let username = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz0123456789._")
+    static let non_letters = CharacterSet(charactersIn: "0123456789._")
+    
 }
