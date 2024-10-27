@@ -30,27 +30,22 @@ struct SignUpView: View {
                 
                 VStack(spacing: 20) {
                     
-                    Text("Create a Boring Account")
+                    Text("Create an account")
                         .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
-                        .font(.system(size: 44, design: .default))
+                        .multilineTextAlignment(.leading)
+                        .font(.system(size: 40, design: .default))
                         .foregroundColor(Summer.black)
                         .padding(.top, 50)
-                        .padding(.bottom, 20)
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Image(systemName: "shared.with.you")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 150, height: 150)
-                        .foregroundColor(Summer.aqua)
-                        .padding(.bottom, 20)
-                    
+                    // _____ START: USERNAME TEXT FIELD _____
                     TextField("Username", text: $username)
-                        .frame(width: 300, height: 40)
+                        .frame(width: 300, height: 50)
                         .autocorrectionDisabled()
                         .padding(.leading, 25)
                         .padding(.trailing, 25)
-                        .padding(.vertical, 10)
                         .background(Summer.white)
                         .cornerRadius(10)
                         .overlay(
@@ -106,20 +101,14 @@ struct SignUpView: View {
                             // Store last username
                             UserDefaults.standard.set(username, forKey: "lastUsername")
                         }
+                    // _____ END: USERNAME TEXT FIELD _____
                     
-                    // Ensure error message is only displayed when necessary
-                    if !username.isEmpty && !usernameValid && !usernameErrorMsg.isEmpty {
-                        Text(usernameErrorMsg)
-                               .font(.footnote)
-                               .foregroundColor(Summer.aqua)
-                    }
-                    
+                    // _____ START: PASSWORD SECURE FIELD _____
                     SecureField("Password", text: $password)
-                        .frame(width: 300, height: 40)
+                        .frame(width: 300, height: 50)
                         .autocorrectionDisabled()
                         .padding(.leading, 25)
                         .padding(.trailing, 25)
-                        .padding(.vertical, 10)
                         .background(Summer.white)
                         .cornerRadius(10)
                         .overlay(
@@ -137,19 +126,14 @@ struct SignUpView: View {
                             // Password's validity for processing and error message display
                             passwordValid = passwordErrorMsg.isEmpty && newValue.count >= 12
                         }
+                    // _____ END: PASSWORD SECURE FIELD _____
                     
-                    if !password.isEmpty && !passwordValid && !passwordErrorMsg.isEmpty {
-                        Text(passwordErrorMsg)
-                               .font(.footnote)
-                               .foregroundColor(Summer.aqua)
-                    }
-                    
+                    // _____ START: CONFIRM PASSWORD SECURE FIELD _____
                     SecureField("Confirm Password", text: $confirmPassword)
-                        .frame(width: 300, height: 40)
+                        .frame(width: 300, height: 50)
                         .autocorrectionDisabled()
                         .padding(.leading, 25)
                         .padding(.trailing, 25)
-                        .padding(.vertical, 10)
                         .background(Summer.white)
                         .cornerRadius(10)
                         .overlay(
@@ -167,15 +151,30 @@ struct SignUpView: View {
                             // Confirm Password's validity for processing and error message display
                             confirmPasswordValid = confirmPasswordErrorMsg.isEmpty
                         }
+                    // _____ END: CONFIRM PASSWORD SECURE FIELD _____
+                    
+                    // _____ START: ERROR MESSSAGES _____
+                    if !username.isEmpty && !usernameValid && !usernameErrorMsg.isEmpty {
+                        Text(usernameErrorMsg)
+                               .font(.footnote)
+                               .foregroundColor(Summer.aqua)
+                    }
+                    
+                    if !password.isEmpty && !passwordValid && !passwordErrorMsg.isEmpty {
+                        Text(passwordErrorMsg)
+                               .font(.footnote)
+                               .foregroundColor(Summer.aqua)
+                    }
                     
                     if !confirmPassword.isEmpty && !confirmPasswordValid && !confirmPasswordErrorMsg.isEmpty {
                         Text(confirmPasswordErrorMsg)
                                .font(.footnote)
                                .foregroundColor(Summer.aqua)
                     }
+                    // _____ END: ERROR MESSSAGES _____
                     
-                    Spacer(minLength: 50)
-                } // Top VStack
+                    Spacer()
+                } // _____ END: TOP VSTACK
                 
                 VStack(spacing: 20) {
                     
@@ -196,11 +195,11 @@ struct SignUpView: View {
                             .foregroundColor(Summer.sun)
                     }
                     
-                } // Bottom VStack
+                } // _____ END: BOTTOM VSTACK
                 
-            } // ZStack
+            } // _________ END: ZSTACK
             
-        } // Navigation Stack
+        } // _____________ END: NAVIGATION STACK
         
         .navigationBarBackButtonHidden(true)
         
