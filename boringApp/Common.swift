@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct Summer {
-    static let sunset = Color(red: 204/255, green: 84/255, blue: 77/255)
+    static let sunset = Color(red: 244/255, green: 84/255, blue: 77/255)
     static let coral = Color(red: 255/255, green: 105/255, blue: 97/255)
     static let sun = Color(red: 248/255, green: 196/255, blue: 45/255)
     static let sky = Color(red: 72/255, green: 209/255, blue: 204/255)
     static let aqua = Color(red: 35/255, green: 179/255, blue: 179/255)
+    
+    static let mint = Color(red: 20/255, green: 227/255, blue: 180/255)
     
     static let white = Color.white
     static let black = Color.black

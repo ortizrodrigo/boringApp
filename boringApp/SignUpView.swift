@@ -32,13 +32,18 @@ struct SignUpView: View {
                     
                     Text("Create an account")
                         .fontWeight(.bold)
-                        .multilineTextAlignment(.leading)
+                        .multilineTextAlignment(.center)
                         .font(.system(size: 40, design: .default))
                         .foregroundColor(Summer.black)
                         .padding(.top, 50)
                         .padding(.leading, 20)
                         .padding(.trailing, 20)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    
+                    Image("AppLogo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 160, height: 160)
                     
                     // _____ START: USERNAME TEXT FIELD _____
                     TextField("Username", text: $username)
@@ -145,7 +150,7 @@ struct SignUpView: View {
                             confirmPasswordErrorMsg = ""
                             
                             if newValue != password {
-                                confirmPasswordErrorMsg = "Passwords do no match"
+                                confirmPasswordErrorMsg = "Passwords do no match."
                             }
                             
                             // Confirm Password's validity for processing and error message display
@@ -185,7 +190,7 @@ struct SignUpView: View {
                                 .font(.system(size: 24, weight: .bold, design: .default))
                                 .frame(width: 360, height: 60)
                                 .foregroundColor(Color.white)
-                                .background(Summer.sun)
+                                .background(Summer.sun) // Summer.sun
                                 .cornerRadius(10)
                         }
                     )
@@ -197,13 +202,13 @@ struct SignUpView: View {
                     
                 } // _____ END: BOTTOM VSTACK
                 
-            } // _________ END: ZSTACK
+            } // _____ END: ZSTACK
             
-        } // _____________ END: NAVIGATION STACK
+        } // _____ END: NAVIGATION STACK
         
         .navigationBarBackButtonHidden(true)
         
-    }
+    } // _____ END: SIGN UP VIEW _____
     
     func signUp() {
         if KeychainHandler.userExists(username: username) {
